@@ -1,6 +1,6 @@
 #!/bin/bash
 # Setup VPS Ubuntu — clone repo, SQL Server Docker, .NET 8, Nginx, systemd
-set -euo pipefail
+set -eu
 
 REPO_URL="${REPO_URL:-https://github.com/huyng1801/web-qlsanbongmini.git}"
 APP_DIR="${APP_DIR:-/var/www/qlsanbongmini}"

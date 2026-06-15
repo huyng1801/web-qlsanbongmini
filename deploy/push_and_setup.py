@@ -70,7 +70,10 @@ def setup_vps():
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(HOST, port=PORT, username=USER, password=PASSWORD, timeout=90, banner_timeout=90)
             sftp = ssh.open_sftp()
-            sftp.put(str(SETUP), "/tmp/setup_vps.sh")
+            # upload with LF line endings
+            content = SETUP.read_text(encoding="utf-8").replace("\r\n", "\n")
+            with sftp.open("/tmp/setup_vps.sh", "w") as f:
+                f.write(content)
             sftp.chmod("/tmp/setup_vps.sh", 0o755)
             sftp.close()
             cmd = "bash /tmp/setup_vps.sh 2>&1"
