@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using QLSanBongMini.Web.Models
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    bool IsNavActive(string controller) =>
+        string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase);
+    bool IsSettingsActive() =>
+        IsNavActive("KhungGio") || IsNavActive("BangGia") || IsNavActive("NguoiDung");
+}
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
@@ -23,28 +31,28 @@
                     <div class="collapse navbar-collapse" id="mainNav">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2 me-1"></i>Tổng quan</a>
+                                <a class="nav-link @(IsNavActive("Dashboard") ? "active" : "")" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2 me-1"></i>Tổng quan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="LichSan" asp-action="Index"><i class="bi bi-calendar3 me-1"></i>Lịch sân</a>
+                                <a class="nav-link @(IsNavActive("LichSan") ? "active" : "")" asp-controller="LichSan" asp-action="Index"><i class="bi bi-calendar3 me-1"></i>Lịch sân</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="DatSan" asp-action="Index"><i class="bi bi-calendar-check me-1"></i>Đặt sân</a>
+                                <a class="nav-link @(IsNavActive("DatSan") ? "active" : "")" asp-controller="DatSan" asp-action="Index"><i class="bi bi-calendar-check me-1"></i>Đặt sân</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="KhachHang" asp-action="Index"><i class="bi bi-people me-1"></i>Khách hàng</a>
+                                <a class="nav-link @(IsNavActive("KhachHang") ? "active" : "")" asp-controller="KhachHang" asp-action="Index"><i class="bi bi-people me-1"></i>Khách hàng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="San" asp-action="Index"><i class="bi bi-geo-alt me-1"></i>Quản lý sân</a>
+                                <a class="nav-link @(IsNavActive("San") ? "active" : "")" asp-controller="San" asp-action="Index"><i class="bi bi-geo-alt me-1"></i>Quản lý sân</a>
                             </li>
                             @if (User.IsInRole(AppRoles.Admin))
                             {
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-gear me-1"></i>Cài đặt</a>
+                                    <a class="nav-link dropdown-toggle @(IsSettingsActive() ? "active" : "")" href="#" data-bs-toggle="dropdown"><i class="bi bi-gear me-1"></i>Cài đặt</a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-controller="KhungGio" asp-action="Index"><i class="bi bi-clock me-2"></i>Khung giờ</a></li>
-                                        <li><a class="dropdown-item" asp-controller="BangGia" asp-action="Index"><i class="bi bi-currency-dollar me-2"></i>Bảng giá</a></li>
-                                        <li><a class="dropdown-item" asp-controller="NguoiDung" asp-action="Index"><i class="bi bi-person-badge me-2"></i>Người dùng</a></li>
+                                        <li><a class="dropdown-item @(IsNavActive("KhungGio") ? "active" : "")" asp-controller="KhungGio" asp-action="Index"><i class="bi bi-clock me-2"></i>Khung giờ</a></li>
+                                        <li><a class="dropdown-item @(IsNavActive("BangGia") ? "active" : "")" asp-controller="BangGia" asp-action="Index"><i class="bi bi-currency-dollar me-2"></i>Bảng giá</a></li>
+                                        <li><a class="dropdown-item @(IsNavActive("NguoiDung") ? "active" : "")" asp-controller="NguoiDung" asp-action="Index"><i class="bi bi-person-badge me-2"></i>Người dùng</a></li>
                                     </ul>
                                 </li>
                             }

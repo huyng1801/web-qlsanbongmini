@@ -52,9 +52,22 @@ body.auth-page {
   transition: background 0.2s;
 }
 
-.sb-navbar .nav-link:hover,
+.sb-navbar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff !important;
+}
+
 .sb-navbar .nav-link.active {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: inset 0 -3px 0 var(--sb-accent);
+}
+
+.sb-navbar .dropdown-menu .dropdown-item.active {
+  background: var(--sb-primary-light);
+  color: var(--sb-primary-dark);
+  font-weight: 600;
 }
 
 .sb-navbar .dropdown-menu {
