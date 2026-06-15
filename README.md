@@ -186,7 +186,7 @@ $env:VPS_PASSWORD='mat-khau-ssh'
 python deploy_vps.py
 ```
 
-**Demo online:** http://103.166.182.48/Account/Login
+**Demo online:** http://103.72.97.87/Account/Login
 
 ---
 
