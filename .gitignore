@@ -18,10 +18,10 @@
 *.userosscache
 *.sln.docstates
 
-## Publish / deploy artifacts
+## Publish artifacts
 *.tar.gz
 *.zip
-deploy/*.tar.gz
+**/qlsb-app.tar.gz
 
 ## Tools / local DB
 *.db
@@ -54,10 +54,10 @@ __pycache__/
 .venv/
 venv/
 
-## Generated docs (regenerate via Docs/build_bao_cao.py)
-Docs/*.docx
+## Generated docs (keep final report for submission)
 Docs/images/
 Docs/template_analysis.txt
+!Docs/DoAn_QLSanBongMini_TheoMau_Chuan.docx
 
 ## IDE / Cursor
 .cursor/
