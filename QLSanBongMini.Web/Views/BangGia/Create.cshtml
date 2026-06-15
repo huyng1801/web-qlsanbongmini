@@ -1,0 +1,33 @@
+@model QLSanBongMini.Web.Models.Entities.BangGia
+@{
+    ViewData["Title"] = "Thêm bảng giá";
+}
+
+<h2>Thêm bảng giá</h2>
+<form asp-action="Create" method="post" class="card border-0 shadow-sm p-4 mt-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="SanId" class="form-label">Sân</label>
+        <select asp-for="SanId" class="form-select" asp-items="ViewBag.SanId"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="KhungGioId" class="form-label">Khung giờ</label>
+        <select asp-for="KhungGioId" class="form-select" asp-items="ViewBag.KhungGioId"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Loại ngày</label>
+        <select asp-for="LaCuoiTuan" class="form-select">
+            <option value="false">Ngày thường</option>
+            <option value="true">Cuối tuần</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gia" class="form-label"></label>
+        <input asp-for="Gia" class="form-control" />
+        <span asp-validation-for="Gia" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

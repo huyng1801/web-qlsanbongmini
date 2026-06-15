@@ -1,0 +1,80 @@
+@model QLSanBongMini.Web.Models.ViewModels.LichSanViewModel
+@{
+    ViewData["Title"] = "Lịch sân";
+}
+
+<div class="sb-page-header d-flex justify-content-between align-items-start flex-wrap gap-3">
+    <div>
+        <h2 class="mb-1">Lịch sân</h2>
+        <p class="sb-subtitle mb-0">Xem và đặt sân theo ngày — @Model.NgayXem.ToString("dd/MM/yyyy")</p>
+    </div>
+    <form method="get" class="d-flex gap-2 sb-filter-bar mb-0 py-2 px-3">
+        <input type="date" name="ngay" value="@Model.NgayXem.ToString("yyyy-MM-dd")" class="form-control" style="max-width:180px" />
+        <button type="submit" class="btn btn-success"><i class="bi bi-search me-1"></i>Xem</button>
+    </form>
+</div>
+
+<div class="sb-legend mb-3 d-flex flex-wrap gap-2">
+    <span class="badge bg-success">Trống — có thể đặt</span>
+    <span class="badge bg-danger">Đã đặt</span>
+    <span class="badge bg-warning text-dark">Bảo trì</span>
+</div>
+
+<div class="sb-schedule">
+    <table class="table table-bordered mb-0 text-center align-middle">
+        <thead>
+            <tr>
+                <th class="text-start ps-3">Sân</th>
+                @foreach (var khung in Model.KhungGios)
+                {
+                    <th>
+                        @khung.TenKhung<br />
+                        <small class="fw-normal opacity-75">@khung.GioBatDau.ToString(@"hh\:mm")-@khung.GioKetThuc.ToString(@"hh\:mm")</small>
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var san in Model.Sans)
+            {
+                <tr>
+                    <td class="san-name ps-3">
+                        @san.TenSan
+                        @if (san.TrangThai == TrangThaiSan.BaoTri)
+                        {
+                            <span class="badge bg-warning text-dark ms-1">Bảo trì</span>
+                        }
+                    </td>
+                    @foreach (var khung in Model.KhungGios)
+                    {
+                        var dat = Model.ODatSan.GetValueOrDefault((san.Id, khung.Id));
+                        if (san.TrangThai == TrangThaiSan.BaoTri)
+                        {
+                            <td class="cell-maintain">—</td>
+                        }
+                        else if (dat != null)
+                        {
+                            <td class="cell-busy">
+                                <small class="fw-semibold d-block">@dat.KhachHang.HoTen</small>
+                                <small class="text-muted">@dat.GioBatDau.ToString(@"hh\:mm")-@dat.GioKetThuc.ToString(@"hh\:mm")</small><br />
+                                <a asp-controller="DatSan" asp-action="Details" asp-route-id="@dat.Id" class="btn btn-sm btn-outline-danger mt-1">Chi tiết</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="cell-free">
+                                <a asp-controller="DatSan" asp-action="Create"
+                                   asp-route-sanId="@san.Id"
+                                   asp-route-ngay="@Model.NgayXem.ToString("yyyy-MM-dd")"
+                                   asp-route-khungGioId="@khung.Id"
+                                   class="btn btn-sm btn-success">
+                                    <i class="bi bi-plus"></i> Đặt
+                                </a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

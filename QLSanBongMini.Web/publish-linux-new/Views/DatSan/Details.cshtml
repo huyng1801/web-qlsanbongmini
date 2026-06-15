@@ -1,0 +1,58 @@
+@model QLSanBongMini.Web.Models.Entities.DatSan
+@{
+    ViewData["Title"] = "Chi tiết đặt sân";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-3">
+    <h2>Chi tiết đặt sân #@Model.Id</h2>
+    <span class="badge bg-secondary fs-6">@TrangThaiDatSan.Labels.GetValueOrDefault(Model.TrangThai, Model.TrangThai)</span>
+</div>
+
+<div class="card border-0 shadow-sm p-4">
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Sân:</strong> @Model.San.TenSan</p>
+            <p><strong>Ngày:</strong> @Model.NgayDat.ToString("dd/MM/yyyy")</p>
+            <p><strong>Giờ:</strong> @Model.GioBatDau.ToString(@"hh\:mm") - @Model.GioKetThuc.ToString(@"hh\:mm")</p>
+            <p><strong>Tổng tiền:</strong> <span class="text-success fw-bold">@Model.TongTien.ToString("N0") đ</span></p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Khách hàng:</strong> @Model.KhachHang.HoTen</p>
+            <p><strong>SĐT:</strong> @Model.KhachHang.SoDienThoai</p>
+            <p><strong>Ghi chú:</strong> @(Model.GhiChu ?? "-")</p>
+            <p><strong>Người tạo:</strong> @(Model.NguoiTao?.HoTen ?? Model.NguoiTao?.UserName ?? "-")</p>
+        </div>
+    </div>
+
+    @if (Model.ThanhToan != null)
+    {
+        <hr />
+        <h5>Thanh toán</h5>
+        <p>
+            @Model.ThanhToan.SoTien.ToString("N0") đ —
+            @HinhThucThanhToan.Labels.GetValueOrDefault(Model.ThanhToan.HinhThuc, Model.ThanhToan.HinhThuc) —
+            @TrangThaiThanhToan.Labels.GetValueOrDefault(Model.ThanhToan.TrangThai, Model.ThanhToan.TrangThai)
+        </p>
+    }
+
+    <div class="d-flex flex-wrap gap-2 mt-3">
+        @if (Model.TrangThai == TrangThaiDatSan.ChoXacNhan)
+        {
+            <form asp-action="XacNhan" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-success">Xác nhận</button>
+            </form>
+        }
+        @if (Model.TrangThai != TrangThaiDatSan.DaHuy)
+        {
+            <a asp-action="ThanhToan" asp-route-id="@Model.Id" class="btn btn-primary">Thanh toán</a>
+            <form asp-action="Huy" method="post" onsubmit="return confirm('Hủy lịch đặt này?');">
+                <input type="hidden" name="id" value="@Model.Id" />
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-outline-danger">Hủy lịch</button>
+            </form>
+        }
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</div>

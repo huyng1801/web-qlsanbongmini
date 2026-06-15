@@ -1,0 +1,71 @@
+@model IEnumerable<QLSanBongMini.Web.Models.Entities.DatSan>
+@{
+    ViewData["Title"] = "Đặt sân";
+    var trangThaiList = ViewBag.TrangThaiList as Dictionary<string, string>;
+}
+
+<div class="sb-page-header d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+    <div>
+        <h2 class="mb-1">Danh sách đặt sân</h2>
+        <p class="sb-subtitle mb-0">Quản lý lịch đặt và trạng thái thanh toán</p>
+    </div>
+    <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-lg me-1"></i>Đặt sân mới</a>
+</div>
+
+<form method="get" class="sb-filter-bar row g-2 align-items-end">
+    <div class="col-md-3">
+        <input type="date" name="ngay" value="@ViewBag.Ngay" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <select name="trangThai" class="form-select">
+            <option value="">-- Tất cả trạng thái --</option>
+            @if (trangThaiList != null)
+            {
+                foreach (var kv in trangThaiList)
+                {
+                    <option value="@kv.Key" selected="@(ViewBag.TrangThai as string == kv.Key)">@kv.Value</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-success">Lọc</button>
+    </div>
+</form>
+
+<div class="sb-table-wrap">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Ngày / Giờ</th>
+                    <th>Sân</th>
+                    <th>Khách hàng</th>
+                    <th>Tiền</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.NgayDat.ToString("dd/MM/yyyy")<br />
+                            <small>@item.GioBatDau.ToString(@"hh\:mm") - @item.GioKetThuc.ToString(@"hh\:mm")</small>
+                        </td>
+                        <td>@item.San.TenSan</td>
+                        <td>@item.KhachHang.HoTen<br /><small>@item.KhachHang.SoDienThoai</small></td>
+                        <td>@item.TongTien.ToString("N0") đ</td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                @TrangThaiDatSan.Labels.GetValueOrDefault(item.TrangThai, item.TrangThai)
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Chi tiết</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

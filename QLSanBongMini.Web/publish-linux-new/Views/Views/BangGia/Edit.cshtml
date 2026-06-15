@@ -1,0 +1,30 @@
+@model QLSanBongMini.Web.Models.Entities.BangGia
+@{
+    ViewData["Title"] = "Sửa bảng giá";
+}
+
+<h2>Sửa bảng giá</h2>
+<form asp-action="Edit" method="post" class="card border-0 shadow-sm p-4 mt-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="SanId" class="form-label">Sân</label>
+        <select asp-for="SanId" class="form-select" asp-items="ViewBag.SanId"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="KhungGioId" class="form-label">Khung giờ</label>
+        <select asp-for="KhungGioId" class="form-select" asp-items="ViewBag.KhungGioId"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Loại ngày</label>
+        <select asp-for="LaCuoiTuan" class="form-select">
+            <option value="false">Ngày thường</option>
+            <option value="true">Cuối tuần</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gia" class="form-label"></label>
+        <input asp-for="Gia" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

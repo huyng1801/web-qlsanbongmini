@@ -1,0 +1,56 @@
+@model QLSanBongMini.Web.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "_LayoutAuth";
+}
+
+<div class="sb-login-wrap">
+    <div class="sb-login-card">
+        <div class="sb-login-brand d-none d-md-flex">
+            <div>
+                <div class="mb-3" style="font-size:2.5rem;">⚽</div>
+                <h1>Quản lý sân bóng mini</h1>
+                <p>Hệ thống hỗ trợ đặt sân, quản lý khách hàng, lịch sân trực quan và thống kê doanh thu cho cơ sở kinh doanh sân bóng đá mini.</p>
+                <p class="mt-4 small opacity-75">Đồ án ASP.NET Core MVC — ĐH Trà Vinh</p>
+            </div>
+        </div>
+        <div class="sb-login-form">
+            <h2>Đăng nhập</h2>
+            <form action="/Account/Login" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold" for="UserName">Tên đăng nhập</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                        <input name="UserName" id="UserName" class="form-control" placeholder="Nhập tên đăng nhập" autofocus required />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold" for="Password">Mật khẩu</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                        <input name="Password" id="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input name="RememberMe" id="RememberMe" type="checkbox" class="form-check-input" value="true" />
+                    <label class="form-check-label" for="RememberMe">Ghi nhớ đăng nhập</label>
+                </div>
+                <button type="submit" class="btn btn-success btn-login w-100">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+                </button>
+            </form>
+            <div class="sb-demo-hint mt-4">
+                <strong>Tài khoản demo:</strong><br />
+                Quản trị: <code>admin</code> / <code>Admin@123</code><br />
+                Nhân viên: <code>nhanvien</code> / <code>Nhanvien@123</code>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

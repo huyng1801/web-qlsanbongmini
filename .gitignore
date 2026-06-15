@@ -1,0 +1,62 @@
+## Build
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+**/publish-linux-out/
+**/publish-linux-new/
+**/publish-linux/
+**/publish-win/
+**/publish/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Publish / deploy artifacts
+*.tar.gz
+*.zip
+deploy/*.tar.gz
+
+## Tools / local DB
+*.db
+*.db-shm
+*.db-wal
+qlsanbongmini.db
+screenshot.db
+
+## OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+## Secrets
+appsettings.*.local.json
+secrets.json
+.env
+.env.*
+*.pfx
+
+## Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+## Generated docs (regenerate via Docs/build_bao_cao.py)
+Docs/*.docx
+Docs/images/
+Docs/template_analysis.txt
+
+## IDE / Cursor
+.cursor/
+assets/
+terminals/
+
+## Node (if any)
+node_modules/

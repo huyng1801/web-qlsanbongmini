@@ -1,0 +1,25 @@
+@model QLSanBongMini.Web.Models.Entities.KhungGio
+@{
+    ViewData["Title"] = "Sửa khung giờ";
+}
+
+<h2>Sửa khung giờ</h2>
+<form asp-action="Edit" method="post" class="card border-0 shadow-sm p-4 mt-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="TenKhung" class="form-label"></label>
+        <input asp-for="TenKhung" class="form-control" />
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="GioBatDau" class="form-label"></label>
+            <input asp-for="GioBatDau" type="time" class="form-control" value="@Model.GioBatDau.ToString(@"hh\:mm")" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="GioKetThuc" class="form-label"></label>
+            <input asp-for="GioKetThuc" type="time" class="form-control" value="@Model.GioKetThuc.ToString(@"hh\:mm")" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

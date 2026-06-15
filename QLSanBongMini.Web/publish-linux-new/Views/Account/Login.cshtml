@@ -1,0 +1,42 @@
+@model QLSanBongMini.Web.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-center text-success mb-4">Đăng nhập hệ thống</h3>
+                <form action="/Account/Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div class="mb-3">
+                        <label class="form-label" for="UserName">Tên đăng nhập</label>
+                        <input name="UserName" id="UserName" class="form-control" autofocus required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="Password">Mật khẩu</label>
+                        <input name="Password" id="Password" type="password" class="form-control" required />
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input name="RememberMe" id="RememberMe" type="checkbox" class="form-check-input" value="true" />
+                        <label class="form-check-label" for="RememberMe">Ghi nhớ đăng nhập</label>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Đăng nhập</button>
+                </form>
+                <hr />
+                <p class="small text-muted mb-0 text-center">
+                    Demo: <strong>admin</strong> / <strong>Admin@123</strong> |
+                    <strong>nhanvien</strong> / <strong>Nhanvien@123</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,26 @@
+@model QLSanBongMini.Web.Models.Entities.KhachHang
+@{
+    ViewData["Title"] = "Sửa khách hàng";
+}
+
+<h2>Sửa khách hàng</h2>
+<form asp-action="Edit" method="post" class="card border-0 shadow-sm p-4 mt-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="HoTen" class="form-label"></label>
+        <input asp-for="HoTen" class="form-control" />
+        <span asp-validation-for="HoTen" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SoDienThoai" class="form-label"></label>
+        <input asp-for="SoDienThoai" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="GhiChu" class="form-label"></label>
+        <textarea asp-for="GhiChu" class="form-control" rows="2"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
